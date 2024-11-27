@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Различные функции проверки</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+        input {
+            padding: 10px;
+            margin: 10px -10px ;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 100%;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        p {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+<!-- Задание 1 -->
+    <div class="container">
+        <h1>Проверка на отрицательное число</h1>
+        <input type="number" id="numberInput" placeholder="Введите число">
+        <button onclick="checkNumber()">Проверить</button>
+        <p id="negativeResult"></p>
+    </div>
+    <script>
+        function isNegative(num) {
+            return num < 0;
+        }
+
+        function checkNumber() {
+            const input = document.getElementById('numberInput').value;
+            const result = document.getElementById('negativeResult');
+            
+            if (input === '') {
+                result.textContent = 'Пожалуйста, введите число.';
+            } else {
+                const num = parseFloat(input);
+                result.textContent = isNegative(num) ? 'Отрицательное число.' : 'Положительное число.';
+            }
+        }
+    </script>
+
+
+
+    <!-- Задание 2 -->
+    <div class="container">
+        <h1>Удвоение строки</h1>
+        <input type="text" id="stringInput" placeholder="Введите строку">
+        <button onclick="showRepeatedString()">Повторить</button>
+        <p id="repeatResult"></p>
+    </div>
+    <script>
+        function repeatTwice(str) {
+            return str + str;
+        }
+
+        function showRepeatedString() {
+            const input = document.getElementById('stringInput').value;
+            const result = document.getElementById('repeatResult');
+            
+            if (input === '') {
+                result.textContent = 'Введите строку';
+            } else {
+                result.textContent = repeatTwice(input);
+            }
+        }
+    </script>
+
+
+
+    <!-- Задание 3 -->
+    <div class="container">
+        <h1>Логическое исключающее "ИЛИ"</h1>
+        <input type="checkbox" id="inputA"> A
+        <input type="checkbox" id="inputB"> B
+        <button onclick="showXorResult()">Сравнить</button>
+        <p id="xorResult"></p>
+    </div>
+    <script>
+        function xor(a, b) {
+            return (a || b) && !(a && b);
+        }
+
+        function showXorResult() {
+            const inputA = document.getElementById('inputA').checked;
+            const inputB = document.getElementById('inputB').checked;
+            const result = document.getElementById('xorResult');
+            
+            result.textContent = `Result: ${xor(inputA, inputB)}`;
+        }
+    </script>
+
+
+
+    <!-- Задание 4 -->
+    <div class="container">
+        <h1>Проверка значения свойства объекта</h1>
+        <label for="key">Введите ключ:</label>
+        <input type="text" id="key" placeholder="Имя, возраст или город">
+        <br>
+        <label for="value">Введите значение:</label>
+        <input type="text" id="value" placeholder="Значение для проверки">
+        <br>
+        <button onclick="checkValue()">Проверить</button>
+        <p id="valueResult"></p>
+    </div>
+    <script>
+        function isValueEqual(obj, key, value) {
+            if (obj.hasOwnProperty(key)) {
+                return obj[key] === value;
+            }
+            return false;
+        }
+
+        function checkValue() {
+            const obj = {
+                Имя: "Виктория",
+                возраст: "19",
+                город: "Минск"
+            };
+
+            const key = document.getElementById("key").value;
+            const value = document.getElementById("value").value;
+
+            const result = isValueEqual(obj, key, value);
+            document.getElementById("valueResult").innerText = result ? "Значение равно!" : "Значение не равно!";
+        }
+    </script>
+    
+
+
+<!-- Задание 5 -->
+    <div class="container">
+        <h1>Добавить элемент в массив</h1>
+        <input type="text" id="elementInput" placeholder="Введите элемент">
+        <button onclick="addElement()">Добавить</button>
+        <p id="arrayResult"></p>
+    </div>
+    <script>
+        let array = [1, 2, 3, 4, 5];
+
+        function addToEnd(array, element) {
+            array.push(element);
+            return array;
+        }
+
+        function addElement() {
+            const element = document.getElementById('elementInput').value;
+            const result = document.getElementById('arrayResult');
+
+            if (element === '') {
+                result.textContent = 'Пожалуйста, введите элемент.';
+            } else {
+                const updatedArray = addToEnd(array, element);
+                result.textContent = `Обновленный массив: [${updatedArray.join(', ')}]`;
+            }
+        }
+    </script>
+    
+
+
+<!-- Задание 6 -->
+    <div class="container">
+        <h1>Подсчёт количества отрицательных чисел</h1>
+        <input type="text" id="negativeArrayInput" placeholder="Введите числа через запятые">
+        <button onclick="countNegativeNumbers()">Подсчёт</button>
+        <p id="negativeCountResult"></p>
+    </div>
+    <script>
+        function countNegatives(array) {
+            let count = 0;
+            for (let i = 0; i < array.length; i++) {
+                if (array[i] < 0) {
+                    count++;
+                }
+            }
+            return count;
+        }
+
+        function countNegativeNumbers() {
+            const input = document.getElementById('negativeArrayInput').value;
+            const result = document.getElementById('negativeCountResult');
+
+            if (input.trim() === '') {
+                result.textContent = 'Введите числа';
+                return;
+            }
+
+            const array = input.split(',').map(Number);
+            const negativeCount = countNegatives(array);
+            result.textContent = `Количество отрицательных чисел: ${negativeCount}`;
+        }
+    </script>
+    
+
+
+<!-- Задание 7 -->
+    <div class="container">
+        <h1>Квадраты чисел</h1>
+        <input type="text" id="squareArrayInput" placeholder="Введите числа через запятую">
+        <button onclick="showSquareNumbers()">Показать квадраты</button>
+        <p id="squareResult"></p>
+    </div>
+    <script>
+        function squareNumbers(array) {
+            return array.map(num => num * num);
+        }
+
+        function showSquareNumbers() {
+            const input = document.getElementById('squareArrayInput').value;
+            const result = document.getElementById('squareResult');
+
+            if (input.trim() === '') {
+                result.textContent = 'Пожалуйста, введите список чисел.';
+                return;
+            }
+
+            const array = input.split(',').map(Number);
+            const squaredArray = squareNumbers(array);
+            result.textContent = `Квадраты чисел: [${squaredArray.join(', ')}]`;
+        }
+    </script>
+</body>
+</html>
